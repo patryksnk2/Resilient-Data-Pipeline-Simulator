@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.patryksnk2.pipeline.resilient-data-pipeline' is invalid and this project uses 'com.patryksnk2.pipeline.resilient_data_pipeline' instead.
+* The original package name 'com.patryksnk2.pipeline.resilient-data-pipeline' is invalid and this project uses 'com.patryksnk2.pipeline.resilientdatapipeline' instead.
 
 # Getting Started
 
