@@ -1,10 +1,14 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.service;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.DataRecord;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
+=======
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.DataRecord;
+>>>>>>> deea544 (docs: ingest service documentation (#22))
 import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestRequest;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PayloadSerializeException;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
@@ -25,6 +29,7 @@ public class IngestServiceImpl implements IngestService {
     @Override
     @Transactional
     public Long submit(IngestRequest request) {
+<<<<<<< HEAD
         log.info("Ingest started for source={}",request.source());
 
         String rawPayload = serializer(request);
@@ -55,5 +60,9 @@ public class IngestServiceImpl implements IngestService {
             log.warn("Failed to serialize payload for source={}",request.source());
             throw new PayloadSerializeException("unable to serialize payload for source: " + request.source(),e);
         }
+=======
+        
+        return 0L;
+>>>>>>> deea544 (docs: ingest service documentation (#22))
     }
 }
