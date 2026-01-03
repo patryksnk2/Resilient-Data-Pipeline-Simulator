@@ -24,7 +24,7 @@ public class DataRecord {
 
     private String source;
 
-    @Column(name = "raw_payload",nullable = false)
+    @Column(nullable = false)
     private String rawPayload;
 
     @CreationTimestamp
