@@ -24,9 +24,8 @@ public class DataRecord {
 
     private String source;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
-    private Map<String, Object> payload;
+    @Column(nullable = false)
+    private String rawPayload;
 
     @CreationTimestamp
     @Column(name = "received_at", updatable = false, nullable = false)
