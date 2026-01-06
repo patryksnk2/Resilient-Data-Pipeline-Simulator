@@ -1,4 +1,4 @@
-package com.patryksnk2.pipeline.resilientdatapipeline;
+package com.patryksnk2.pipeline.resilientdatapipeline.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,12 +9,9 @@ import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestRequest;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PayloadSerializeException;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.RecordRepository;
-import com.patryksnk2.pipeline.resilientdatapipeline.service.IngestServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -25,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class IngestServiceTest {
+class IngestServiceUT {
 
     @InjectMocks
     private IngestServiceImpl sut;
