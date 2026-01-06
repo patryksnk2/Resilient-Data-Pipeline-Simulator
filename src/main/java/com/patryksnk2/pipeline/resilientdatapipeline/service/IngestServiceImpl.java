@@ -49,7 +49,7 @@ public class IngestServiceImpl implements IngestService {
         try {
             return objectMapper.writeValueAsString(request.payload());
         } catch (JsonProcessingException e) {
-            throw new PayloadSerializeException("unable to serialize payload for source:" + request.source());
+            throw new PayloadSerializeException("unable to serialize payload for source:" + request.source(),e);
         }
     }
 }
