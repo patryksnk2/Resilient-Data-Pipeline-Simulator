@@ -9,5 +9,4 @@ public class ResilientDataPipelineApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ResilientDataPipelineApplication.class, args);
 	}
-
 }
