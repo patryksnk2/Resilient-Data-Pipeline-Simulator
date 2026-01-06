@@ -3,6 +3,7 @@ package com.patryksnk2.pipeline.resilientdatapipeline.controller;
 import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestRequest;
 import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestResponse;
 import com.patryksnk2.pipeline.resilientdatapipeline.service.IngestService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class RecordsController {
 
     private final IngestService ingestService;
 
+    @Transactional
     @PostMapping(consumes = "application/json")
     public ResponseEntity<IngestResponse> ingest(@Valid @RequestBody IngestRequest request) {
         Long jobId = ingestService.submit(request);
