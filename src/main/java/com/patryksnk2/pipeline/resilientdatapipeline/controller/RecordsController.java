@@ -20,7 +20,6 @@ public class RecordsController {
 
     private final IngestService ingestService;
 
-    @Transactional
     @PostMapping(consumes = "application/json")
     public ResponseEntity<IngestResponse> ingest(@Valid @RequestBody @NotNull IngestRequest request) {
         Long jobId = ingestService.submit(request);
