@@ -11,8 +11,9 @@ import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepos
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.RecordRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class IngestServiceImpl implements IngestService {
@@ -24,6 +25,8 @@ public class IngestServiceImpl implements IngestService {
     @Override
     @Transactional
     public Long submit(IngestRequest request) {
+        log.info("Ingest started for source={}",request.source());
+
         String rawPayload = serializer(request);
 
         DataRecord dataRecord = DataRecord.builder()
@@ -32,7 +35,7 @@ public class IngestServiceImpl implements IngestService {
                 .build();
 
         dataRecord = recordRepository.save(dataRecord);
-
+        log.info("DataRecord persisted with id ={}",dataRecord.getId());
         PipelineJob pipelineJob = PipelineJob.builder()
                 .record(dataRecord)
                 .status(Status.CREATED)
@@ -41,7 +44,7 @@ public class IngestServiceImpl implements IngestService {
                 .build();
 
         pipelineJob = pipelineJobRepository.save(pipelineJob);
-
+        log.info("PipelineJob created with id={} for recordId = {}",pipelineJob.getId(),dataRecord.getId());
         return pipelineJob.getId();
     }
 
@@ -49,7 +52,8 @@ public class IngestServiceImpl implements IngestService {
         try {
             return objectMapper.writeValueAsString(request.payload());
         } catch (JsonProcessingException e) {
-            throw new PayloadSerializeException("unable to serialize payload for source:" + request.source(),e);
+            log.warn("Failed to serialize payload for source={}",request.source());
+            throw new PayloadSerializeException("unable to serialize payload for source: " + request.source(),e);
         }
     }
 }
