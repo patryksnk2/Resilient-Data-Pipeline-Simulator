@@ -89,7 +89,7 @@ class IngestServiceUT {
         //then
         Assertions.assertThatThrownBy(() -> sut.submit(request))
                 .isInstanceOf(PayloadSerializeException.class)
-                .hasMessage("unable to serialize payload for source:" + request.source());
+                .hasMessage("unable to serialize payload for source: " + request.source());
         verify(objectMapper).writeValueAsString(payload);
     }
 }
