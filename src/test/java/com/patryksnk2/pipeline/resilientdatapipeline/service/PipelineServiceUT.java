@@ -4,6 +4,7 @@ import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.ProcessingResult;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PipelineJobNotFoundException;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.PipelineContext;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
@@ -29,9 +30,9 @@ class PipelineServiceUT {
     @Mock
     private ProcessingResultRepository processingResultRepository;
     @Mock
-    private Stage<Integer, Integer> stage1;
+    private Stage stage1;
     @Mock
-    private Stage<Integer, Integer> stage2;
+    private Stage stage2;
     @InjectMocks
     private PipelineServiceImpl sut;
     private static final Long JOB_ID = 10L;
@@ -82,7 +83,7 @@ class PipelineServiceUT {
         verifyNoMoreInteractions(pipelineJobRepository);
         verifyNoMoreInteractions(processingResultRepository);
 
-        Assertions.assertThat(processingCaptor.getAllValues()).hasSize(3).allSatisfy(res->assertThat(res.isSuccess()).isTrue());
+        Assertions.assertThat(processingCaptor.getAllValues()).hasSize(3).allSatisfy(res -> assertThat(res.isSuccess()).isTrue());
         Assertions.assertThat(pipelineCaptor.getValue().getStatus()).isEqualTo(Status.SUCCEEDED);
         Assertions.assertThat(pipelineCaptor.getValue().getAttempts()).isEqualTo(1);
         Assertions.assertThat(processingCaptor.getAllValues()).hasSize(3);
@@ -93,8 +94,10 @@ class PipelineServiceUT {
         //given
         PipelineJob pipelineJob = createSampleJob();
         when(pipelineJobRepository.findById(JOB_ID)).thenReturn(Optional.of(pipelineJob));
-        when(stage1.execute(any())).thenReturn(10);
-        when(stage2.execute(any())).thenThrow(new RuntimeException());
+        when(stage1.getName()).thenReturn("VALIDATION");
+        when(stage2.getName()).thenReturn("ENRICHMENT");
+
+        doThrow(new RuntimeException("Simulated Failure")).when(stage2).execute(any(PipelineContext.class));
         //when
         sut.submitJobForProcessing(JOB_ID);
         //then
@@ -109,7 +112,7 @@ class PipelineServiceUT {
 
         Assertions.assertThat(processingResultCaptor.getAllValues())
                 .extracting(ProcessingResult::isSuccess, ProcessingResult::getStageName)
-                .containsExactly(tuple(true, "stage1"), tuple(false, "stage2"));
+                .containsExactly(tuple(true, "VALIDATION"), tuple(false, "ENRICHMENT"));
         Assertions.assertThat(pipelineCaptor.getValue().getStatus()).isEqualTo(Status.FAILED);
         Assertions.assertThat(pipelineCaptor.getValue().getLastError()).isNotNull();
 

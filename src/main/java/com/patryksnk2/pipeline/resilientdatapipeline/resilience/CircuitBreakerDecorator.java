@@ -3,10 +3,17 @@ package com.patryksnk2.pipeline.resilientdatapipeline.resilience;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
 
 /**
- * Wraps a stage with a Circuit Breaker to prevent calling failing services
- * It stops execution if too many errors occurs
+ * Strategy for wrapping a pipeline stage with a Circuit Breaker pattern.
+ * Prevents execution of a failing stage to allow the system to recover
+ * and avoid cascading failures.
  */
 public interface CircuitBreakerDecorator {
 
-    <T, R> Stage<T, R> decorate(Stage<T, R> stage);
+    /**
+     * Enhances a stage with circuit breaker capabilities.
+     *
+     * @param stage The original stage to be decorated.
+     * @return A new Stage instance protected by a circuit breaker.
+     */
+    Stage decorate(Stage stage);
 }
