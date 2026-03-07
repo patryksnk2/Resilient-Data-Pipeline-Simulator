@@ -1,8 +1,11 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.pipeline;
 
+import lombok.Builder;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Builder
 public record PipelineContext(
         Long jobId,
         String rawPayload,
