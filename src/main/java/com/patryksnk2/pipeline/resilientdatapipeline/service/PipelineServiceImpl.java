@@ -6,6 +6,5 @@ import org.springframework.stereotype.Service;
 public class PipelineServiceImpl implements PipelineService {
     @Override
     public void submitJobForProcessing(Long jobId) {
-
     }
 }
