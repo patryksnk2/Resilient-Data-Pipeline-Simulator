@@ -1,5 +1,6 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.pipeline;
 
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
 import lombok.Builder;
 
 import java.util.Map;
@@ -7,12 +8,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Builder
 public record PipelineContext(
-        Long jobId,
+        PipelineJob pipelineJob,
         String rawPayload,
         Map<String,Object> metadata
 ) {
-    public PipelineContext(Long jobId,String rawPayload){
-        this(jobId,rawPayload,new ConcurrentHashMap<>());
+    public PipelineContext(PipelineJob pipelineJob,String rawPayload){
+        this(pipelineJob,rawPayload,new ConcurrentHashMap<>());
     }
 
     public void put(String key, Object value){
