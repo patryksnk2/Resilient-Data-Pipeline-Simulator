@@ -10,7 +10,6 @@ import java.util.List;
 @Configuration
 public class PipelineConfig {
 
-
     @Bean
     public List<Stage> getStages(DataValidatorStage dataValidatorStage) {
         return List.of(dataValidatorStage);

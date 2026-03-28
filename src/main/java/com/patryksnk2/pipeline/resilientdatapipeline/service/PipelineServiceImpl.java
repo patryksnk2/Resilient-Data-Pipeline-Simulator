@@ -1,7 +1,6 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.service;
 
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PipelineJobNotFoundException;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.PipelineContext;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.ReportingStageDecorator;
@@ -11,10 +10,10 @@ import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResult
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
