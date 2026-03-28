@@ -3,16 +3,16 @@ package com.patryksnk2.pipeline.resilientdatapipeline.resilience;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
 
 /**
- * Decorator that limits the rate of stage executions.
- * It ensures the system does not exceed a defined number of calls per time period.
+ * Strategy for wrapping a pipeline stage with rate limiting logic.
+ * Ensures the system does not exceed a defined threshold of executions per time period.
  */
 public interface RateLimiterDecorator {
 
     /**
-     * Wraps a stage with rate limiting logic.
-     * * @param stage The stage to be limited
+     * Enhances a stage with rate limiting capabilities.
      *
-     * @return A stage instance that respects rate limits
+     * @param stage The original stage to be decorated.
+     * @return A new Stage instance that enforces rate limits during execution.
      */
-    <T, R> Stage<T, R> decorate(Stage<T, R> stage);
+    Stage decorate(Stage stage);
 }

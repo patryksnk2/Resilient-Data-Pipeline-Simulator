@@ -26,6 +26,7 @@ public class IngestServiceImpl implements IngestService {
     @Override
     @Transactional
     public Long submit(IngestRequest request) {
+        log.info("Ingest started for source={}", request.source());
         String rawPayload = serializer(request);
 
         DataRecord dataRecord = DataRecord.builder()
@@ -43,7 +44,7 @@ public class IngestServiceImpl implements IngestService {
                 .build();
 
         pipelineJob = pipelineJobRepository.save(pipelineJob);
-
+        log.info("Ingest completed, jobId={} created for source={}", pipelineJob.getId(), request.source());
         return pipelineJob.getId();
     }
 

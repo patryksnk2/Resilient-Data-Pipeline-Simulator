@@ -56,9 +56,4 @@ build/jacoco/
 
 .dockerenv
 
-*.pem
-*.key
-*.p12
-*.jks
-*.keystore
-*.truststore
+.aider*

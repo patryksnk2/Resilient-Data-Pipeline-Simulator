@@ -3,16 +3,16 @@ package com.patryksnk2.pipeline.resilientdatapipeline.resilience;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
 
 /**
- * Decorator that adds a time limit to a processing stage.
- * It ensures that a stage execution does not exceed a maximum allowed time.
+ * Strategy for wrapping a pipeline stage with a time limit.
+ * Ensures that stage execution is interrupted if it exceeds the allocated duration.
  */
 public interface TimeoutDecorator {
 
     /**
-     * Wraps a stage with timeout logic.
-     * * @param stage The stage to be monitored
+     * Enhances a stage with timeout capabilities.
      *
-     * @return A stage instance that will time out if it takes too long
+     * @param stage The original stage to be decorated.
+     * @return A new Stage instance that enforces a timeout during execution.
      */
-    <T, R> Stage<T, R> decorate(Stage<T, R> stage);
+    Stage decorate(Stage stage);
 }
