@@ -1,6 +1,6 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.pipeline;
+package com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import lombok.Builder;
 
 import java.util.Map;

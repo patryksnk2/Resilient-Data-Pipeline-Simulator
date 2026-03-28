@@ -1,4 +1,4 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.dto;
+package com.patryksnk2.pipeline.resilientdatapipeline.api.dto;
 
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import jakarta.validation.constraints.NotBlank;

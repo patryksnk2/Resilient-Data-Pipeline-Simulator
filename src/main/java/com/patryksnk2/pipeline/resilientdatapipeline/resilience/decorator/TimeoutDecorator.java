@@ -1,6 +1,6 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.resilience;
+package com.patryksnk2.pipeline.resilientdatapipeline.resilience.decorator;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
 
 /**
  * Strategy for wrapping a pipeline stage with a time limit.

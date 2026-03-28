@@ -1,4 +1,4 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.advice;
+package com.patryksnk2.pipeline.resilientdatapipeline.api.exception;
 
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PayloadSerializeException;
 import jakarta.servlet.http.HttpServletRequest;

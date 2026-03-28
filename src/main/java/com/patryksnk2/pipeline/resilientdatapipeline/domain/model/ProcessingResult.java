@@ -1,4 +1,4 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.domain;
+package com.patryksnk2.pipeline.resilientdatapipeline.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;

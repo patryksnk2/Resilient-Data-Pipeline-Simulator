@@ -1,4 +1,4 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.advice;
+package com.patryksnk2.pipeline.resilientdatapipeline.api.exception;
 
 import org.springframework.http.HttpStatus;
 

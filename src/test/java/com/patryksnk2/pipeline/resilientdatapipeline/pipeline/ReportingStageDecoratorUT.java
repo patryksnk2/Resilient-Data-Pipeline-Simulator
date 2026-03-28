@@ -1,7 +1,10 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.pipeline;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.ProcessingResult;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.ProcessingResult;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.PipelineContext;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.decorators.ReportingStageDecorator;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

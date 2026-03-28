@@ -1,6 +1,6 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.repository;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.DataRecord;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.DataRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,8 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.pipeline;
+package com.patryksnk2.pipeline.resilientdatapipeline.pipeline.decorators;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.ProcessingResult;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.ProcessingResult;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.PipelineContext;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

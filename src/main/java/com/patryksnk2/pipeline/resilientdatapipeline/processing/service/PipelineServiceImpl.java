@@ -1,12 +1,13 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.service;
+package com.patryksnk2.pipeline.resilientdatapipeline.processing.service;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PipelineJobNotFoundException;
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.PipelineContext;
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.ReportingStageDecorator;
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.PipelineContext;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.decorators.ReportingStageDecorator;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
+import com.patryksnk2.pipeline.resilientdatapipeline.processing.manager.PipelineJobManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
