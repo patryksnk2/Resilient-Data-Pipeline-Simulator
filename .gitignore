@@ -1,19 +1,59 @@
+build/
+out/
+target/
 *.class
-hs_err_pid*
-replay_pid*
+*.jar
+*.war
+*.ear
 
 .gradle/
-build/
+gradle-app.setting
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+src/main/resources/application-prod.properties
+src/main/resources/application-staging.properties
+src/main/resources/application-local.properties
+.env
+.env.*
+*.env
+secrets.properties
+secret.properties
 
 .idea/
 *.iml
+*.iws
+*.ipr
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/shelf/
 
-*.log
+.vscode/
+*.code-workspace
+
+.classpath
+.project
+.settings/
+.factorypath
 
 .DS_Store
 Thumbs.db
+desktop.ini
+*~
 
+*.log
 *.tmp
 *.swp
+*.bak
+*.orig
+hs_err_pid*
+replay_pid*
+logs/
+
+build/reports/
+build/test-results/
+build/jacoco/
+
+.dockerenv
 
 .aider*
