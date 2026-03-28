@@ -3,18 +3,14 @@ package com.patryksnk2.pipeline.resilientdatapipeline.resilience;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
 
 /**
- * Decorator that adds retry logic to a processing stage.
- * It automatically re-runs the stage if an error occurs.
+ * Strategy for wrapping a pipeline stage with additional resilience logic.
  */
 public interface RetryDecorator {
 
     /**
-     * Wraps a stage with retry capabilities.
-     * * @param stage the original stage to decorate
-     *
-     * @param <T> input type
-     * @param <R> output type
-     * @return the stage enhanced with retry logic
+     * Wraps the provided stage with retry capabilities.
+     * * @param stage The original stage to be decorated.
+     * @return A new Stage instance that includes the retry mechanism.
      */
-    <T, R> Stage<T, R> decorate(Stage<T, R> stage);
+    Stage decorate(Stage stage);
 }

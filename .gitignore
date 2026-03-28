@@ -16,3 +16,4 @@ Thumbs.db
 *.tmp
 *.swp
 
+.aider*

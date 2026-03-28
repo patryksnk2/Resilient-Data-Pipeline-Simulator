@@ -1,20 +1,19 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.pipeline;
 
 /**
- * Represents a single stage in the pipeline.
- * Each stage is responsible for a specific transformation or action.
- *
- * @param <T> the type of the input data
- * @param <R> the type of the output result
+ * A discrete step in the processing pipeline.
  */
-public interface Stage<T, R> {
+public interface Stage {
 
     /**
-     * Executes the processing logic for this stage.
-     *
-     * @param input the data to be transformed or processed
-     * @return the result of the transformation
-     * @throws RuntimeException or a specific exception if the processing fails
+     * Executes the stage logic using the provided context.
+     * All input data is read from the context, and results are stored back into it.
      */
-    R execute(T input);
+    void execute(PipelineContext pipelineContext);
+
+    /**
+     * Returns the unique identifier of the stage.
+     * Used for logging and tracking progress in the database.
+     */
+    String getName();
 }

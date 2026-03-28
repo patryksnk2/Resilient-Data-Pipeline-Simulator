@@ -11,8 +11,9 @@ import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepos
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.RecordRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class IngestServiceImpl implements IngestService {
@@ -24,6 +25,7 @@ public class IngestServiceImpl implements IngestService {
     @Override
     @Transactional
     public Long submit(IngestRequest request) {
+        log.info("Ingest started for source={}", request.source());
         String rawPayload = serializer(request);
 
         DataRecord dataRecord = DataRecord.builder()
@@ -41,7 +43,7 @@ public class IngestServiceImpl implements IngestService {
                 .build();
 
         pipelineJob = pipelineJobRepository.save(pipelineJob);
-
+        log.info("Ingest completed, jobId={} created for source={}", pipelineJob.getId(), request.source());
         return pipelineJob.getId();
     }
 
