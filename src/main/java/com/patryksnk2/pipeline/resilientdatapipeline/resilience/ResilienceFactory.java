@@ -1,6 +1,6 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.resilience;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
 
 /**
  * Factory for creating and applying resilience decorators to pipeline stages.

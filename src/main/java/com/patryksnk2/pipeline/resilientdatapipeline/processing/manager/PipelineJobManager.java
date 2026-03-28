@@ -1,6 +1,6 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.service;
+package com.patryksnk2.pipeline.resilientdatapipeline.processing.manager;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import lombok.RequiredArgsConstructor;

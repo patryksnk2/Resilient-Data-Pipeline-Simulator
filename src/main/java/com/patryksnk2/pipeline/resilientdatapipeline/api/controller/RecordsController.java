@@ -1,9 +1,8 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.controller;
+package com.patryksnk2.pipeline.resilientdatapipeline.api.controller;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestRequest;
-import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestResponse;
-import com.patryksnk2.pipeline.resilientdatapipeline.service.IngestService;
-import jakarta.transaction.Transactional;
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestRequest;
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestResponse;
+import com.patryksnk2.pipeline.resilientdatapipeline.ingestion.IngestService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

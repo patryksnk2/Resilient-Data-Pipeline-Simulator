@@ -2,11 +2,12 @@ package com.patryksnk2.pipeline.resilientdatapipeline.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.DataRecord;
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.DataRecord;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
-import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestRequest;
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestRequest;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PayloadSerializeException;
+import com.patryksnk2.pipeline.resilientdatapipeline.ingestion.IngestServiceImpl;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.RecordRepository;
 import org.assertj.core.api.Assertions;

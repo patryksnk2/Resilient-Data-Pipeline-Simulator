@@ -1,6 +1,6 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.repository;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.ProcessingResult;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.ProcessingResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.NonNull;

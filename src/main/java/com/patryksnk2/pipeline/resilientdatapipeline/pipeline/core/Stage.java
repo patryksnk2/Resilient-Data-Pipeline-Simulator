@@ -1,4 +1,4 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.pipeline;
+package com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core;
 
 /**
  * A discrete step in the processing pipeline.

@@ -1,5 +1,6 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.domain;
+package com.patryksnk2.pipeline.resilientdatapipeline.domain.model;
 
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

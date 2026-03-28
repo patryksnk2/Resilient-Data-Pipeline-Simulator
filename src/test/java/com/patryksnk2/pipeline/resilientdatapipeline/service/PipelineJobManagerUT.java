@@ -1,7 +1,8 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.service;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
+import com.patryksnk2.pipeline.resilientdatapipeline.processing.manager.PipelineJobManager;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

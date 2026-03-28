@@ -1,4 +1,4 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.dto;
+package com.patryksnk2.pipeline.resilientdatapipeline.api.dto;
 
 import jakarta.validation.constraints.NotNull;
 

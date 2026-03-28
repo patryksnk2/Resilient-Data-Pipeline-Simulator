@@ -1,6 +1,6 @@
-package com.patryksnk2.pipeline.resilientdatapipeline.service;
+package com.patryksnk2.pipeline.resilientdatapipeline.ingestion;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestRequest;
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestRequest;
 
 /**
  * interface for ingesting data into the processing pipeline
