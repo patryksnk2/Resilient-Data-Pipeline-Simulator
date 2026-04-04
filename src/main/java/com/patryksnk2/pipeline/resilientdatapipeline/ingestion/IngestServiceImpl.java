@@ -2,17 +2,19 @@ package com.patryksnk2.pipeline.resilientdatapipeline.ingestion;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestRequest;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.DataRecord;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
-import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestRequest;
+import com.patryksnk2.pipeline.resilientdatapipeline.event.JobCreatedEvent;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PayloadSerializeException;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.RecordRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -22,6 +24,7 @@ public class IngestServiceImpl implements IngestService {
     private final RecordRepository recordRepository;
     private final PipelineJobRepository pipelineJobRepository;
     private final ObjectMapper objectMapper;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     @Transactional
@@ -45,6 +48,8 @@ public class IngestServiceImpl implements IngestService {
 
         pipelineJob = pipelineJobRepository.save(pipelineJob);
         log.info("Ingest completed, jobId={} created for source={}", pipelineJob.getId(), request.source());
+        eventPublisher.publishEvent(new JobCreatedEvent(pipelineJob.getId()));
+        log.debug("JobCreatedEvent published for jobId={}", pipelineJob.getId());
         return pipelineJob.getId();
     }
 

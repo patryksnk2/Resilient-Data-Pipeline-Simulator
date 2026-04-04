@@ -6,6 +6,7 @@ import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.DataRecord;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestRequest;
+import com.patryksnk2.pipeline.resilientdatapipeline.event.JobCreatedEvent;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PayloadSerializeException;
 import com.patryksnk2.pipeline.resilientdatapipeline.ingestion.IngestServiceImpl;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.Map;
 
@@ -33,6 +35,8 @@ class IngestServiceUT {
     private PipelineJobRepository pipelineJobRepository;
     @Mock
     private ObjectMapper objectMapper;
+    @Mock
+    private ApplicationEventPublisher eventPublisher;
 
     @Test
     void when_submit_request_is_valid_then_create_job_id() throws JsonProcessingException {
@@ -74,7 +78,8 @@ class IngestServiceUT {
         verify(recordRepository).save(any(DataRecord.class));
         verify(pipelineJobRepository).save(any(PipelineJob.class));
         verify(objectMapper).writeValueAsString(request.payload());
-        verifyNoMoreInteractions(recordRepository, pipelineJobRepository, objectMapper);
+        verify(eventPublisher).publishEvent(new JobCreatedEvent(10L));
+        verifyNoMoreInteractions(recordRepository, pipelineJobRepository, objectMapper,eventPublisher);
     }
 
     @Test
