@@ -1,11 +1,13 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.service;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.DataRecord;
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.DataRecord;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PipelineJobNotFoundException;
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.PipelineContext;
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.PipelineContext;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
+import com.patryksnk2.pipeline.resilientdatapipeline.processing.manager.PipelineJobManager;
+import com.patryksnk2.pipeline.resilientdatapipeline.processing.service.PipelineServiceImpl;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
 import org.assertj.core.api.Assertions;
@@ -44,7 +46,7 @@ class PipelineServiceUT {
     void setUp() {
         sut = new PipelineServiceImpl(
                 pipelineJobRepository,
-                List.of(stage1,stage2),
+                List.of(stage1, stage2),
                 processingResultRepository,
                 pipelineJobManager
         );
@@ -96,7 +98,7 @@ class PipelineServiceUT {
         sut.submitJobForProcessing(JOB_ID);
         //then
         verify(pipelineJobManager).markAsProcessing(pipelineJob);
-        verify(pipelineJobManager).markAsFailed(pipelineJob,"Simulated Failure");
+        verify(pipelineJobManager).markAsFailed(pipelineJob, "Simulated Failure");
         verifyNoMoreInteractions(pipelineJobManager);
     }
 

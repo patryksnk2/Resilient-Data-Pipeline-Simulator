@@ -1,11 +1,11 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.DataRecord;
-import com.patryksnk2.pipeline.resilientdatapipeline.domain.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestRequest;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
-import com.patryksnk2.pipeline.resilientdatapipeline.dto.IngestRequest;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.DataRecord;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
+import com.patryksnk2.pipeline.resilientdatapipeline.ingestion.IngestServiceImpl;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.RecordRepository;
 import org.assertj.core.api.Assertions;
@@ -26,13 +26,11 @@ class IngestServiceIT {
     private RecordRepository recordRepository;
     @Autowired
     private PipelineJobRepository pipelineJobRepository;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     void when_submit_then_data_record_and_pipeline_job_are_persisted() throws JsonProcessingException {
         //given
-        IngestRequest request = new IngestRequest("test/1",Map.of("test",1));
+        IngestRequest request = new IngestRequest("test/1", Map.of("test", 1));
         //when
         sut.submit(request);
         //then

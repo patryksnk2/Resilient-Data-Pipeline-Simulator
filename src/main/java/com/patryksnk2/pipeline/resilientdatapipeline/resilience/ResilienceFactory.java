@@ -1,6 +1,6 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.resilience;
 
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.Stage;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
 
 /**
  * Factory for creating and applying resilience decorators to pipeline stages.
@@ -11,6 +11,7 @@ public interface ResilienceFactory {
     /**
      * Decorates a given stage with all configured resilience mechanisms.
      * * @param stage The base stage to be enhanced.
+     *
      * @return A decorated stage instance protected by resilience patterns.
      */
     Stage decorate(Stage stage);

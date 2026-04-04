@@ -1,0 +1,27 @@
+package com.patryksnk2.pipeline.resilientdatapipeline.api.controller;
+
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestRequest;
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.IngestResponse;
+import com.patryksnk2.pipeline.resilientdatapipeline.ingestion.IngestService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1/records")
+@RequiredArgsConstructor
+public class RecordsController {
+
+    private final IngestService ingestService;
+
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<IngestResponse> ingest(@Valid @RequestBody @NotNull IngestRequest request) {
+        Long jobId = ingestService.submit(request);
+        return ResponseEntity.status(201).body(new IngestResponse(jobId));
+    }
+}
