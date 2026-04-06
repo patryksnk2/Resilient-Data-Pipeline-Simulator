@@ -35,7 +35,7 @@ class ReportingStageDecoratorUT {
     void should_create_ProcessingResult_with_success_true_when_stage_succeeds() {
         //given
         String delegateStageName = "dataValidatorStage";
-        when(pipelineContext.pipelineJob()).thenReturn(pipelineJob);
+        when(pipelineContext.getPipelineJob()).thenReturn(pipelineJob);
         when(pipelineJob.getId()).thenReturn(10L);
         when(delegate.getName()).thenReturn(delegateStageName);
 
@@ -58,7 +58,7 @@ class ReportingStageDecoratorUT {
     void should_create_ProcessingResult_with_success_false_and_rethrow_when_stage_fails() {
         //given
         String delegateStageName = "dataValidatorStage";
-        when(pipelineContext.pipelineJob()).thenReturn(pipelineJob);
+        when(pipelineContext.getPipelineJob()).thenReturn(pipelineJob);
         when(pipelineJob.getId()).thenReturn(10L);
         when(delegate.getName()).thenReturn(delegateStageName);
 

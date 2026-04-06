@@ -2,19 +2,19 @@ package com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core;
 
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import lombok.Builder;
+import lombok.Value;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Value
 @Builder
-public record PipelineContext(
-        PipelineJob pipelineJob,
-        String rawPayload,
-        Map<String, Object> metadata
-) {
-    public PipelineContext(PipelineJob pipelineJob, String rawPayload) {
-        this(pipelineJob, rawPayload, new ConcurrentHashMap<>());
-    }
+public class PipelineContext {
+    PipelineJob pipelineJob;
+    String rawPayload;
+
+    @Builder.Default
+    Map<String, Object> metadata = new ConcurrentHashMap<>();
 
     public void put(String key, Object value) {
         metadata.put(key, value);

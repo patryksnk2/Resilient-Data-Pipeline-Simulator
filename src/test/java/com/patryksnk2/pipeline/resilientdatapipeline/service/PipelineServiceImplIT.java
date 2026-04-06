@@ -5,6 +5,7 @@ import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.ProcessingResult;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PipelineJobNotFoundException;
+import com.patryksnk2.pipeline.resilientdatapipeline.processing.manager.PipelineJobManager;
 import com.patryksnk2.pipeline.resilientdatapipeline.processing.service.PipelineServiceImpl;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
@@ -29,6 +30,8 @@ class PipelineServiceImplIT {
     private RecordRepository recordRepository;
     @Autowired
     private ProcessingResultRepository processingResultRepository;
+    @Autowired
+    private PipelineJobManager pipelineJobManager;
 
     @AfterEach
     public void tearDown() {
@@ -85,11 +88,25 @@ class PipelineServiceImplIT {
                 .containsOnly(true);
     }
 
-    @Disabled
+
     @Test
     void when_some_stage_fails_then_job_status_should_be_FAILED_and_failure_result_saved() {
         // given
-        PipelineJob job = createAndSaveJob();
+        String rawPayload = "{}";
+        String source = "test/1";
+
+        DataRecord dataRecord = DataRecord.builder()
+                .rawPayload(rawPayload)
+                .source(source)
+                .build();
+        DataRecord savedDataRecord = recordRepository.save(dataRecord);
+
+        PipelineJob pipelineJob = PipelineJob.builder()
+                .record(savedDataRecord)
+                .status(Status.CREATED)
+                .attempts(0)
+                .build();
+        PipelineJob job = pipelineJobRepository.save(pipelineJob);
 
         // when
         sut.submitJobForProcessing(job.getId());

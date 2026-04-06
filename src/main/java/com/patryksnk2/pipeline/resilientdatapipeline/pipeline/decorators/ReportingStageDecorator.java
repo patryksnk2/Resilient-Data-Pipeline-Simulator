@@ -16,13 +16,13 @@ public class ReportingStageDecorator implements Stage {
 
     @Override
     public void execute(PipelineContext pipelineContext) {
-        log.debug("Executing stage={} for jobId={}", delegate.getName(), pipelineContext.pipelineJob().getId());
+        log.debug("Executing stage={} for jobId={}", delegate.getName(), pipelineContext.getPipelineJob().getId());
         try {
             delegate.execute(pipelineContext);
             saveResult(pipelineContext, true, null);
-            log.debug("Stage={} succeeded for jobId={}", delegate.getName(), pipelineContext.pipelineJob().getId());
+            log.debug("Stage={} succeeded for jobId={}", delegate.getName(), pipelineContext.getPipelineJob().getId());
         } catch (Exception e) {
-            log.warn("Stage={} failed for jobId={}, reason={}", delegate.getName(), pipelineContext.pipelineJob().getId(), e.getMessage());
+            log.warn("Stage={} failed for jobId={}, reason={}", delegate.getName(), pipelineContext.getPipelineJob().getId(), e.getMessage());
             saveResult(pipelineContext, false, e.getMessage());
             throw e;
         }
@@ -35,7 +35,7 @@ public class ReportingStageDecorator implements Stage {
 
     private void saveResult(PipelineContext context, boolean success, String errorMessage) {
         ProcessingResult processingResult = ProcessingResult.builder()
-                .pipelineJob(context.pipelineJob())
+                .pipelineJob(context.getPipelineJob())
                 .success(success)
                 .error(errorMessage)
                 .stageName(delegate.getName())
