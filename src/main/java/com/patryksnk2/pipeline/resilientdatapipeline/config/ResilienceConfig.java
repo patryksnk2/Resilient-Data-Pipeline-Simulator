@@ -19,6 +19,16 @@ public record ResilienceConfig(
         @Min(1)
         int circuitBreakerThreshold,
         @Min(5)
-        int slidingWindowSize
+        int slidingWindowSize,
+        @Min(5)
+        int rateLimitForPeriod,
+        @NotNull
+        Duration rateLimitRefreshPeriod,
+        @NotNull
+        Duration waitDurationInOpenState,
+        @Min(1)
+        int permittedNumberOfCallsInHalfOpenState,
+        @NotNull
+        Duration rateLimitTimeoutDuration
 ) {
 }

@@ -20,8 +20,8 @@ public class CircuitBreakerDecoratorImpl implements CircuitBreakerDecorator {
         CircuitBreakerConfig cbConfig = CircuitBreakerConfig.custom()
                 .slidingWindowSize(config.slidingWindowSize())
                 .failureRateThreshold(config.circuitBreakerThreshold())
-                .waitDurationInOpenState(Duration.ofSeconds(10))
-                .permittedNumberOfCallsInHalfOpenState(3)
+                .waitDurationInOpenState(config.waitDurationInOpenState())
+                .permittedNumberOfCallsInHalfOpenState(config.permittedNumberOfCallsInHalfOpenState())
                 .ignoreExceptions(DataValidationException.class)
                 .build();
         this.circuitBreaker = CircuitBreakerRegistry.of(cbConfig)
