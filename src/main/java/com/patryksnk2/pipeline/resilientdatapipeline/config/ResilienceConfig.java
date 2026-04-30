@@ -17,6 +17,8 @@ public record ResilienceConfig(
         @NotNull
         Duration timeoutDuration,
         @Min(1)
-        int circuitBreakerThreshold
+        int circuitBreakerThreshold,
+        @Min(5)
+        int slidingWindowSize
 ) {
 }
