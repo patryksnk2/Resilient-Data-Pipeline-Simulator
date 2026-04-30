@@ -20,9 +20,7 @@ public class TimeoutDecoratorImpl implements TimeoutDecorator {
     private final Executor workerExecutor;
     private final ScheduledExecutorService scheduler;
 
-    public TimeoutDecoratorImpl(
-            ResilienceConfig config,
-            @Qualifier("pipelineTaskExecutor") Executor workerExecutor) {
+    public TimeoutDecoratorImpl(ResilienceConfig config, @Qualifier("pipelineTaskExecutor") Executor workerExecutor) {
 
         this.workerExecutor = workerExecutor;
 
@@ -44,8 +42,7 @@ public class TimeoutDecoratorImpl implements TimeoutDecorator {
         return new Stage() {
             @Override
             public void execute(PipelineContext pipelineContext) {
-                Supplier<CompletionStage<Void>> task = () ->
-                        CompletableFuture.runAsync(() -> stage.execute(pipelineContext), workerExecutor);
+                Supplier<CompletionStage<Void>> task = () -> CompletableFuture.runAsync(() -> stage.execute(pipelineContext), workerExecutor);
                 try {
                     timeLimiter.executeCompletionStage(scheduler, task)
                             .toCompletableFuture()

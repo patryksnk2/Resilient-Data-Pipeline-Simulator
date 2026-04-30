@@ -18,7 +18,7 @@ public class RetryDecoratorImpl implements RetryDecorator {
     public RetryDecoratorImpl(ResilienceConfig config, ErrorClassifier errorClassifier) {
         RetryConfig retryConfig = RetryConfig.custom()
                 .maxAttempts(config.maxRetries())
-                .waitDuration(config.timeoutDuration())
+                .waitDuration(config.retryDelay())
                 .retryOnException(errorClassifier::isRetryable)
                 .build();
         RetryRegistry registry = RetryRegistry.of(retryConfig);

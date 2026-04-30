@@ -8,6 +8,7 @@ import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.processing.manager.PipelineJobManager;
+import com.patryksnk2.pipeline.resilientdatapipeline.resilience.ResilienceFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class PipelineServiceImpl implements PipelineService {
     private final List<Stage> stages;
     private final ProcessingResultRepository processingResultRepository;
     private final PipelineJobManager pipelineJobManager;
-
+    private final ResilienceFactory resilienceFactory;
     @Transactional
     @Override
     public void submitJobForProcessing(Long jobId) {
@@ -53,7 +54,8 @@ public class PipelineServiceImpl implements PipelineService {
 
     private void batchStages(PipelineContext context) {
         for (Stage stage : stages) {
-            new ReportingStageDecorator(stage, processingResultRepository).execute(context);
+            Stage resilient = resilienceFactory.decorate(stage);
+            new ReportingStageDecorator(resilient, processingResultRepository).execute(context);
         }
     }
 
