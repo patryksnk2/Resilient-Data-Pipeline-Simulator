@@ -2,7 +2,9 @@ package com.patryksnk2.pipeline.resilientdatapipeline.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.SimpleAsyncTaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
@@ -13,12 +15,10 @@ public class AsyncConfig {
 
     @Bean
     public Executor pipelineTaskExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(2);
-        executor.setMaxPoolSize(10);
-        executor.setQueueCapacity(100);
-        executor.setThreadNamePrefix("pipeline-async-");
-        executor.initialize();
+        SimpleAsyncTaskExecutor executor = new SimpleAsyncTaskExecutor();
+        executor.setThreadNamePrefix("pipeline-vt-");
+        executor.setVirtualThreads(true);
+        executor.setTaskTerminationTimeout(30_000);
         return executor;
     }
 }

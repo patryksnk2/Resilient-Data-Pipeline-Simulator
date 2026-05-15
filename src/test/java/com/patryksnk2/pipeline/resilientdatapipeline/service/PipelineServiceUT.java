@@ -10,6 +10,7 @@ import com.patryksnk2.pipeline.resilientdatapipeline.processing.manager.Pipeline
 import com.patryksnk2.pipeline.resilientdatapipeline.processing.service.PipelineServiceImpl;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
+import com.patryksnk2.pipeline.resilientdatapipeline.resilience.ResilienceFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,8 @@ class PipelineServiceUT {
     private Stage stage1;
     @Mock
     private Stage stage2;
-    @InjectMocks
+    @Mock
+    private ResilienceFactory resilienceFactory;
     private PipelineServiceImpl sut;
 
     private static final Long JOB_ID = 10L;
@@ -48,7 +50,8 @@ class PipelineServiceUT {
                 pipelineJobRepository,
                 List.of(stage1, stage2),
                 processingResultRepository,
-                pipelineJobManager
+                pipelineJobManager,
+                resilienceFactory
         );
     }
 
@@ -73,6 +76,8 @@ class PipelineServiceUT {
     void when_submitJobForProcessing_is_called_then_job_is_marked_as_processing_then_succeeded() {
         //given
         PipelineJob pipelineJob = createSampleJob();
+        when(resilienceFactory.decorate(stage1)).thenReturn(stage1);
+        when(resilienceFactory.decorate(stage2)).thenReturn(stage2);
         when(pipelineJobRepository.findById(JOB_ID)).thenReturn(Optional.of(pipelineJob));
 
         //when
@@ -93,6 +98,7 @@ class PipelineServiceUT {
         //given
         PipelineJob pipelineJob = createSampleJob();
         when(pipelineJobRepository.findById(JOB_ID)).thenReturn(Optional.of(pipelineJob));
+        when(resilienceFactory.decorate(stage1)).thenReturn(stage1);
         doThrow(new RuntimeException("Simulated Failure")).when(stage1).execute(any(PipelineContext.class));
         //when
         sut.submitJobForProcessing(JOB_ID);

@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import java.util.List;
+
 public record JobStatusDto(
         @NotNull
         Long jobId,
@@ -12,6 +14,7 @@ public record JobStatusDto(
         Status status,
         @PositiveOrZero
         int attempts,
-        String lastError
+        String lastError,
+        List<ProcessingResultDto> failedStages
 ) {
 }
