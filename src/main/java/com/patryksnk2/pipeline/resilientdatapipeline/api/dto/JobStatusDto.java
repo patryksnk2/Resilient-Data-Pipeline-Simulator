@@ -15,6 +15,6 @@ public record JobStatusDto(
         @PositiveOrZero
         int attempts,
         String lastError,
-        List<ProcessingResultDto> failedStages
+        List<ProcessingResultDto> processingResults
 ) {
 }
