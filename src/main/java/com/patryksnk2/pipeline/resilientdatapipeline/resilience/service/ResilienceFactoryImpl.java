@@ -2,6 +2,8 @@ package com.patryksnk2.pipeline.resilientdatapipeline.resilience.service;
 
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
 import com.patryksnk2.pipeline.resilientdatapipeline.resilience.ResilienceFactory;
+import com.patryksnk2.pipeline.resilientdatapipeline.resilience.decorator.CircuitBreakerDecorator;
+import com.patryksnk2.pipeline.resilientdatapipeline.resilience.decorator.RateLimiterDecorator;
 import com.patryksnk2.pipeline.resilientdatapipeline.resilience.decorator.RetryDecorator;
 import com.patryksnk2.pipeline.resilientdatapipeline.resilience.decorator.TimeoutDecorator;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +14,10 @@ import org.springframework.stereotype.Component;
 public class ResilienceFactoryImpl implements ResilienceFactory {
     private final RetryDecorator retryDecorator;
     private final TimeoutDecorator timeoutDecorator;
+    private final CircuitBreakerDecorator circuitBreakerDecorator;
+    private final RateLimiterDecorator rateLimiterDecorator;
 
     public Stage decorate(Stage stage) {
-        return timeoutDecorator.decorate(retryDecorator.decorate(stage));
+        return timeoutDecorator.decorate(retryDecorator.decorate(circuitBreakerDecorator.decorate(rateLimiterDecorator.decorate(stage))));
     }
 }

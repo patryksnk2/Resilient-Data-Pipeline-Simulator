@@ -14,7 +14,7 @@ import java.time.Duration;
 
 @Component
 public class CircuitBreakerDecoratorImpl implements CircuitBreakerDecorator {
-    private CircuitBreaker circuitBreaker;
+    private final CircuitBreaker circuitBreaker;
 
     public CircuitBreakerDecoratorImpl(ResilienceConfig config) {
         CircuitBreakerConfig cbConfig = CircuitBreakerConfig.custom()
