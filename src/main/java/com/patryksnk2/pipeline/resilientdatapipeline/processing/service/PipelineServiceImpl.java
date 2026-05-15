@@ -1,13 +1,15 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.processing.service;
 
+import com.patryksnk2.pipeline.resilientdatapipeline.api.dto.JobStatusDto;
+import com.patryksnk2.pipeline.resilientdatapipeline.domain.Status;
 import com.patryksnk2.pipeline.resilientdatapipeline.domain.model.PipelineJob;
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PipelineJobNotFoundException;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.PipelineContext;
-import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.decorators.ReportingStageDecorator;
 import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.core.Stage;
+import com.patryksnk2.pipeline.resilientdatapipeline.pipeline.decorators.ReportingStageDecorator;
+import com.patryksnk2.pipeline.resilientdatapipeline.processing.manager.PipelineJobManager;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.PipelineJobRepository;
 import com.patryksnk2.pipeline.resilientdatapipeline.repository.ProcessingResultRepository;
-import com.patryksnk2.pipeline.resilientdatapipeline.processing.manager.PipelineJobManager;
 import com.patryksnk2.pipeline.resilientdatapipeline.resilience.ResilienceFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,7 @@ public class PipelineServiceImpl implements PipelineService {
     private final ProcessingResultRepository processingResultRepository;
     private final PipelineJobManager pipelineJobManager;
     private final ResilienceFactory resilienceFactory;
+
     @Transactional
     @Override
     public void submitJobForProcessing(Long jobId) {
