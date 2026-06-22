@@ -33,7 +33,9 @@ public class CircuitBreakerDecoratorImpl implements CircuitBreakerDecorator {
         return new Stage() {
             @Override
             public void execute(PipelineContext pipelineContext) {
-                circuitBreaker.executeRunnable(() -> stage.execute(pipelineContext));
+                circuitBreaker.executeRunnable(() -> {
+                    stage.execute(pipelineContext);
+                });
             }
 
             @Override
