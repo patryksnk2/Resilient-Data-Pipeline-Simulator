@@ -77,7 +77,7 @@ class PipelineServiceImplIT {
     void when_submitJobForProcessing_then_success_processing_should_be_created_for_each_stage() {
         //given
         PipelineJob savedJob = createAndSaveJob();
-        int expectedStagesCount = 1;
+        int expectedStagesCount = 2;
         //when
         sut.submitJobForProcessing(savedJob.getId());
         //then

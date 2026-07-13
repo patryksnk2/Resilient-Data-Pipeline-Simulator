@@ -1,6 +1,7 @@
 package com.patryksnk2.pipeline.resilientdatapipeline.api.exception;
 
 import com.patryksnk2.pipeline.resilientdatapipeline.exception.PayloadSerializeException;
+import com.patryksnk2.pipeline.resilientdatapipeline.exception.PipelineJobNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,13 @@ public class GlobalExceptionHandler {
         }
         ErrorResponse body = ErrorResponse.ofValidation(HttpStatus.BAD_REQUEST, "Validation failed", req.getRequestURI(), errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
+    @ExceptionHandler(PipelineJobNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePipelineJobNotFound(
+            PipelineJobNotFoundException ex, HttpServletRequest req) {
+        ErrorResponse body = ErrorResponse.of(HttpStatus.NOT_FOUND, ex.getMessage(), req.getRequestURI());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 
     @ExceptionHandler(Exception.class)
