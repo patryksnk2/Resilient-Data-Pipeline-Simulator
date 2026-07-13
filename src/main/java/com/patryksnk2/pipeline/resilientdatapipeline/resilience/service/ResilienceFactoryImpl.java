@@ -18,6 +18,9 @@ public class ResilienceFactoryImpl implements ResilienceFactory {
     private final RateLimiterDecorator rateLimiterDecorator;
 
     public Stage decorate(Stage stage) {
-        return timeoutDecorator.decorate(retryDecorator.decorate(circuitBreakerDecorator.decorate(rateLimiterDecorator.decorate(stage))));
+        Stage withTimeout = timeoutDecorator.decorate(stage);
+        Stage withRetry = retryDecorator.decorate(withTimeout);
+        Stage withCircuitBreaker = circuitBreakerDecorator.decorate(withRetry);
+        return rateLimiterDecorator.decorate(withCircuitBreaker);
     }
 }

@@ -48,7 +48,11 @@ public class TimeoutDecoratorImpl implements TimeoutDecorator {
                             .toCompletableFuture()
                             .get();
                 } catch (ExecutionException e) {
-                    throw new RuntimeException("Stage error: " + stage.getName(), e.getCause());
+                    Throwable cause = e.getCause();
+                    if (cause instanceof RuntimeException re) {
+                        throw re; // rethrow oryginalny wyjątek, zachowaj jego komunikat
+                    }
+                    throw new RuntimeException(cause.getMessage(), cause);
                 } catch (InterruptedException e) {
                     throw new RuntimeException("Timeout in stage: " + stage.getName(), e);
                 } catch (Exception e) {
